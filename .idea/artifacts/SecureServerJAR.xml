@@ -1,9 +1,11 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="SecureServerJAR">
+  <artifact name="SecureServerJAR">
     <output-path>$PROJECT_DIR$/out/artifacts/SecureServerJAR</output-path>
-    <root id="archive" name="DACSC_Step3P1.jar">
-      <element id="module-output" name="DACSC_Step3P1" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/bouncycastle/bcprov-jdk18on/1.78.1/bcprov-jdk18on-1.78.1.jar" path-in-jar="/" />
+    <root id="root">
+      <element id="archive" name="SecureServer.jar">
+        <element id="module-output" name="DACSC_Step3P1" />
+      </element>
+      <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk18on:1.78.1" />
       <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/serverconfig.properties" />
     </root>
   </artifact>

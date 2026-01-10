@@ -1,12 +1,14 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="SecureClientJAR">
+  <artifact name="SecureClientJAR">
     <output-path>$PROJECT_DIR$/out/artifacts/SecureClientJAR</output-path>
-    <root id="archive" name="DACSC_Step3P1.jar">
-      <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/src/main/java/hepl/DACSC/client/META-INF/MANIFEST.MF" />
+    <root id="root">
+      <element id="archive" name="SecureClient.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/java/hepl/DACSC/client/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="DACSC_Step3P1" />
       </element>
-      <element id="module-output" name="DACSC_Step3P1" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/bouncycastle/bcprov-jdk18on/1.78.1/bcprov-jdk18on-1.78.1.jar" path-in-jar="/" />
+      <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk18on:1.78.1" />
     </root>
   </artifact>
 </component>
