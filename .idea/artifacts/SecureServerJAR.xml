@@ -8,6 +8,7 @@
       <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk18on:1.78.1" />
       <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/serverconfig.properties" />
       <element id="dir-copy" path="$PROJECT_DIR$/src/main/resources/CryptoCles" />
+      <element id="library" level="project" name="Maven: com.mysql:mysql-connector-j:8.3.0" />
     </root>
   </artifact>
 </component>
