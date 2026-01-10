@@ -45,21 +45,44 @@ public class ClientController implements ActionListener {
     }
 
     private PublicKey loadPublicKey() throws IOException, ClassNotFoundException {
-        ObjectInputStream ois = new ObjectInputStream(
-                new FileInputStream("./MyCrypto/clePubliqueClient")
-        );
-         PublicKey cle = (PublicKey) ois.readObject();
-        ois.close();
-        return cle;
+        try {
+            // Charger depuis les resources (fonctionne en JAR et en développement)
+            InputStream is = getClass().getResourceAsStream("/CryptoCles/clePubliqueClient.ser");
+
+            if (is == null) {
+                throw new FileNotFoundException("Fichier de clé introuvable dans les resources");
+            }
+
+            ObjectInputStream ois = new ObjectInputStream(is);
+            PublicKey key = (PublicKey) ois.readObject();
+            ois.close();
+
+            return key;
+        } catch (Exception e) {
+            System.err.println("Erreur lors du chargement de la clé privée: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private PrivateKey loadPrivateKey() throws IOException, ClassNotFoundException {
-        ObjectInputStream ois = new ObjectInputStream(
-                new FileInputStream("./MyCrypto/clePubliqueClient")
-        );
-        PrivateKey cle = (PrivateKey) ois.readObject();
-        ois.close();
-        return cle;
+        try {
+            InputStream is = getClass().getResourceAsStream("/CryptoCles/clePriveeClient.ser");
+
+            if (is == null) {
+                throw new FileNotFoundException("Fichier de clé introuvable dans les resources");
+            }
+
+            ObjectInputStream ois = new ObjectInputStream(is);
+            PrivateKey key = (PrivateKey) ois.readObject();
+            ois.close();
+
+            return key;
+        } catch (Exception e) {
+            System.err.println("Erreur lors du chargement de la clé privée: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -207,7 +230,7 @@ public class ClientController implements ActionListener {
 
     private PublicKey getServerPublicKey() throws IOException, ClassNotFoundException {
         ObjectInputStream ois = new ObjectInputStream(
-                new FileInputStream("./MyCrypto/clePubliqueServeur")
+                new FileInputStream("./DACSC/MyCrypto/clePubliqueServeur")
         );
         PublicKey cle = (PublicKey) ois.readObject();
         ois.close();

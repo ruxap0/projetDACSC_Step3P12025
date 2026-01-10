@@ -7,6 +7,7 @@
       </element>
       <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk18on:1.78.1" />
       <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/serverconfig.properties" />
+      <element id="dir-copy" path="$PROJECT_DIR$/src/main/resources/CryptoCles" />
     </root>
   </artifact>
 </component>
