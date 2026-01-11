@@ -5,31 +5,31 @@ import java.security.*;
 
 public class CryptoUtils {
     public static byte[] CryptSymDES(SecretKey cle, byte[] data) throws NoSuchPaddingException, NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-        Cipher chiffrementE = Cipher.getInstance("DES/ECB/PKCS5Padding", "BC");
+        Cipher chiffrementE = Cipher.getInstance("DES/ECB/PKCS5Padding");
         chiffrementE.init(Cipher.ENCRYPT_MODE, cle);
         return chiffrementE.doFinal(data);
     }
 
     public static byte[] DecryptSymDES(SecretKey cle, byte[] data) throws NoSuchPaddingException, NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-        Cipher chiffrementD = Cipher.getInstance("DES/ECB/PKCS5Padding", "BC");
+        Cipher chiffrementD = Cipher.getInstance("DES/ECB/PKCS5Padding");
         chiffrementD.init(Cipher.DECRYPT_MODE, cle);
         return chiffrementD.doFinal(data);
     }
 
     public static byte[] CryptAsymRSA(PublicKey cle, byte[] data) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchProviderException {
-        Cipher chiffrementE = Cipher.getInstance("RSA/ECB/PKCS1Padding", "BC");
+        Cipher chiffrementE = Cipher.getInstance("RSA/ECB/PKCS1Padding");
         chiffrementE.init(Cipher.ENCRYPT_MODE, cle);
         return chiffrementE.doFinal(data);
     }
 
     public static byte[] DecryptAsymRSA(PrivateKey cle, byte[] data) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchProviderException {
-        Cipher chiffrementD = Cipher.getInstance("RSA/ECB/PKCS1Padding", "BC");
+        Cipher chiffrementD = Cipher.getInstance("RSA/ECB/PKCS1Padding");
         chiffrementD.init(Cipher.DECRYPT_MODE, cle);
         return chiffrementD.doFinal(data);
     }
 
     public static byte[] signData(byte[] data, PrivateKey privateKey) throws Exception {
-        Signature signature = Signature.getInstance("SHA256withRSA", "BC");
+        Signature signature = Signature.getInstance("SHA256withRSA");
         signature.initSign(privateKey);
         signature.update(data);
 
@@ -38,7 +38,7 @@ public class CryptoUtils {
 
     public static boolean verifySignature(byte[] data, byte[] signature, PublicKey publicKey) throws Exception {
         try{
-            Signature s = Signature.getInstance("SHA256withRSA", "BC");
+            Signature s = Signature.getInstance("SHA256withRSA");
             s.initVerify(publicKey);
             s.update(data);
             return s.verify(signature);
@@ -50,12 +50,13 @@ public class CryptoUtils {
 
     public static SecretKey generateSessionKey() throws NoSuchAlgorithmException, NoSuchProviderException {
         try{
-            KeyGenerator kg = KeyGenerator.getInstance("DES", "BC");
-            kg.init(128);
+            KeyGenerator kg = KeyGenerator.getInstance("DES");
+            kg.init(56);
 
             return kg.generateKey();
         }
         catch(Exception e){
+            e.printStackTrace();
             throw new NoSuchAlgorithmException("Erreur");
         }
     }
@@ -70,7 +71,7 @@ public class CryptoUtils {
     public static byte[] generateDigest(String login, String password, byte[] salt) throws NoSuchAlgorithmException {
         try{
 
-            MessageDigest digest = MessageDigest.getInstance("SHA-256", "BC");
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
             digest.update(login.getBytes());
             digest.update(password.getBytes());
             digest.update(salt);

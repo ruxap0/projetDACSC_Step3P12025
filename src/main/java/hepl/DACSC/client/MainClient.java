@@ -8,9 +8,9 @@ import java.security.Security;
 public class MainClient {
     public static void main(String[] args) {
         // Lancer l'interface graphique sur le thread EDT (Event Dispatch Thread)
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
         SwingUtilities.invokeLater(() -> {
             try {
-                Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
                 // Créer la fenêtre de login
                 LoginInterface loginView = new LoginInterface();
 

@@ -42,13 +42,19 @@ public class MRPS implements Protocole {
     }
 
     private void loadServerKeys() throws Exception {
-        ObjectInputStream ois = new ObjectInputStream(
-                new FileInputStream("./MyCrypto/clePriveeServeur.ser"));
+        InputStream is = getClass().getClassLoader().getResourceAsStream("CryptoCles/clePriveeServeur.ser");
+        if (is == null) {
+            throw new FileNotFoundException("clePriveeServeur.ser not found in resources");
+        }
+        ObjectInputStream ois = new ObjectInputStream(is);
         serverPrivateKey = (PrivateKey) ois.readObject();
         ois.close();
 
-        ois = new ObjectInputStream(
-                new FileInputStream("./MyCrypto/clePubliqueServeur.ser"));
+        is = getClass().getClassLoader().getResourceAsStream("CryptoCles/clePubliqueServeur.ser");
+        if (is == null) {
+            throw new FileNotFoundException("clePubliqueServeur.ser not found in resources");
+        }
+        ois = new ObjectInputStream(is);
         serverPublicKey = (PublicKey) ois.readObject();
         ois.close();
     }
@@ -175,9 +181,11 @@ public class MRPS implements Protocole {
     }
 
     public PublicKey getClientPublicKey() throws IOException, ClassNotFoundException {
-        ObjectInputStream ois = new ObjectInputStream(
-                new FileInputStream("./MyCrypto/clePubliqueClient.ser")
-        );
+        InputStream is = getClass().getClassLoader().getResourceAsStream("CryptoCles/clePubliqueClient.ser");
+        if (is == null) {
+            throw new FileNotFoundException("clePubliqueServeur.ser not found in resources");
+        }
+        ObjectInputStream ois = new ObjectInputStream(is);
         PublicKey cle = (PublicKey) ois.readObject();
         ois.close();
         return cle;

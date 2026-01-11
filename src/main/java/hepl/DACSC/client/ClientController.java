@@ -166,13 +166,14 @@ public class ClientController implements ActionListener {
     {
         try
         {
+            socket = new Socket("192.168.253.128", 50009);
+
             oos = new ObjectOutputStream(socket.getOutputStream());
             ois = new ObjectInputStream(socket.getInputStream());
 
             String loginDoctor = loginView.getUsername();
             String passwordDoctor = loginView.getPassword();
 
-            socket = new Socket("192.168.253.128", 50009);
 
             RequeteLoginFirst requete1 = new RequeteLoginFirst(loginDoctor);
             oos.writeObject(requete1);
@@ -229,9 +230,11 @@ public class ClientController implements ActionListener {
     }
 
     private PublicKey getServerPublicKey() throws IOException, ClassNotFoundException {
-        ObjectInputStream ois = new ObjectInputStream(
-                new FileInputStream("./DACSC/MyCrypto/clePubliqueServeur")
-        );
+        InputStream is = getClass().getClassLoader().getResourceAsStream("CryptoCles/clePubliqueServeur.ser");
+        if (is == null) {
+            throw new FileNotFoundException("clePubliqueServeur.ser not found in resources");
+        }
+        ObjectInputStream ois = new ObjectInputStream(is);
         PublicKey cle = (PublicKey) ois.readObject();
         ois.close();
         return cle;

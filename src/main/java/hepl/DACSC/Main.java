@@ -7,10 +7,12 @@ import hepl.DACSC.server.Logger;
 import hepl.DACSC.server.ThreadSeveurDemande;
 
 import java.io.IOException;
+import java.security.Security;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
         DBConnexion con;
         ConfigServer configServer = new ConfigServer();
         new DBConnexion(
